@@ -9,12 +9,12 @@ for line in f:
     if event['origin']['module'] == 'grabber':
         ip = event['target']['ip']
         try:
-            if 'response' in event['result']['data']:
-                if 'etag' in event['result']['data']['response']['body']:
-                   print ("[*] Docker System Logged[*]")
-                   text_file = open("./cfg/"+ip+".json", "a")
-                   js = json.loads(event['result']['data']['response']['body'])
-                   text_file.write(json.dumps(js, indent=4))
-                   text_file.close()
+            
+            if 'OK' in event['result']['data']['response']['statusMessage']:
+               print ("[*] CouchDB System Logged[*]")
+               URL = event['result']['data']['request']['url']
+               text_file = open("found.txt", "a")
+               text_file.write(""+URL+"\n")
+               text_file.close()
         except:
             continue
